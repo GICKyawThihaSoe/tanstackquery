@@ -1,24 +1,32 @@
-"use client"
-import { Button, Card, CardBody, CardFooter, Typography } from "@material-tailwind/react";
+"use client";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Typography,
+} from "@material-tailwind/react";
+import Link from "next/link";
 import React from "react";
 
-
-const EventCard = ({ title, description, time }) => {
+const EventCard = (props) => {
   return (
     <Card className="mt-6">
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
-          {title}
+          {props.title}
         </Typography>
-        <Typography>
-          {description}
-        </Typography>
-        <Typography variant="body2" color="gray" className="mt-2">
-          Time: {new Date(time).toLocaleString()}
+        <Typography>{props.description}</Typography>
+        <Typography color="gray" className="mt-2">
+          Time: {new Date(props.time).toLocaleString()}
         </Typography>
       </CardBody>
       <CardFooter className="pt-0">
-        <Button variant="gradient" fullWidth>Read More</Button>
+        <Link href={props.linkUrl}>
+          <Button fullWidth>
+            Read More
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );
