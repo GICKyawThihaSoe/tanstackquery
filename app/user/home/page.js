@@ -1,12 +1,19 @@
-"use client";
+"use client"
 import React from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import EventCard from "../../components/EventCard";
 import { fetchEvents } from "../../utils/api";
 import UserLayout from "../../UserLayout";
 
 const EventsPage = () => {
-  const { data: events, isLoading, isError } = useQuery("events", fetchEvents);
+  const queryClient = useQueryClient();
+
+  const { data: events, isLoading, isError } = useQuery("events", fetchEvents, {
+    onSuccess: () => {
+      // Invalidate the "events" query to trigger a refetch
+      queryClient.invalidateQueries("events");
+    },
+  });
 
   if (isLoading) {
     return <div>Loading...</div>;
