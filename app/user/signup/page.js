@@ -24,7 +24,7 @@ const page = () => {
 
   const createUser = async ({ userName, email, password, confirmPassword }) => {
     try {
-      const res = await axiosInstance.post("/api/auth/register", {
+      const res = await axiosInstance.post("/auth/register", {
         userName,
         email,
         password,
@@ -37,7 +37,7 @@ const page = () => {
   };
 
   const { mutateAsync: createUserAsync } = useMutation({
-    mutationKey: ["post", "/api/auth/register"],
+    mutationKey: ["post", "/auth/register"],
     mutationFn: createUser,
     onSuccess: () => {
       setRegistrationSuccess(true);

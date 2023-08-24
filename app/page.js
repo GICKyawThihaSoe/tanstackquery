@@ -23,7 +23,7 @@ const page = () => {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const loginUser = async ({ email, password }) => {
     try {
-      const res = await axiosInstance.post("/api/auth/login", {
+      const res = await axiosInstance.post("/auth/login", {
         email,
         password,
       });
@@ -34,7 +34,7 @@ const page = () => {
   };
 
   const { mutateAsync: loginUserAsync } = useMutation({
-    mutationKey: ["post", "/api/auth/login"],
+    mutationKey: ["post", "/auth/login"],
     mutationFn: loginUser,
     onSuccess: (data) => {
       setLoginSuccess(true);

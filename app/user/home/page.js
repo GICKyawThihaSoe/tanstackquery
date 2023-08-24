@@ -1,10 +1,35 @@
-"use client"
-import React from 'react';
+"use client";
+import React from "react";
+import { useQuery } from "react-query";
+import EventCard from "../../components/EventCard";
+import { fetchEvents } from "../../utils/api";
+import UserLayout from "../../UserLayout";
 
-const page = () => {
+const EventsPage = () => {
+  const { data: events, isLoading, isError } = useQuery("events", fetchEvents);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error fetching events</div>;
+  }
+
   return (
-    <div>home</div>
-  )
-}
+    <UserLayout>
+      <div className="grid grid-cols-4 gap-4 p-20">
+        {events.map((event) => (
+          <EventCard
+            key={event._id} // Replace with your event ID field
+            title={event.title}
+            description={event.description}
+            time={event.time}
+          />
+        ))}
+      </div>
+    </UserLayout>
+  );
+};
 
-export default page
+export default EventsPage;
